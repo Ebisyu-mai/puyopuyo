@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 4259903555617754416}
   - component: {fileID: 4644383369112325416}
   - component: {fileID: 975654992177771364}
+  - component: {fileID: 6730831445233894778}
   m_Layer: 0
   m_Name: pinkpuyo
   m_TagString: Untagged
@@ -172,6 +173,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   nowPos: 0
+--- !u!114 &6730831445233894778
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3631776376768877237}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d17e3565f70c144fe9531d4476e36009, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &4326318172075942806
 GameObject:
   m_ObjectHideFlags: 0
@@ -185,6 +198,7 @@ GameObject:
   - component: {fileID: 3486260531081197705}
   - component: {fileID: 5387360159410863437}
   - component: {fileID: 1277278766320609497}
+  - component: {fileID: 529917505933838}
   m_Layer: 0
   m_Name: bluepuyo
   m_TagString: Untagged
@@ -344,6 +358,18 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.5, y: 0.5}
   m_EdgeRadius: 0
+--- !u!114 &529917505933838
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4326318172075942806}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d17e3565f70c144fe9531d4476e36009, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &5529749725561262488
 GameObject:
   m_ObjectHideFlags: 0

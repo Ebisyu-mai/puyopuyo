@@ -96,6 +96,7 @@ GameObject:
   - component: {fileID: 1822913785469911383}
   - component: {fileID: 6453687314608421669}
   - component: {fileID: 8471754108623827585}
+  - component: {fileID: 8531783824634252216}
   m_Layer: 0
   m_Name: pinkpuyo
   m_TagString: Untagged
@@ -255,6 +256,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   nowPos: 0
+--- !u!114 &8531783824634252216
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2940546777530841660}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d17e3565f70c144fe9531d4476e36009, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2972212274579125661
 GameObject:
   m_ObjectHideFlags: 0
@@ -268,6 +281,7 @@ GameObject:
   - component: {fileID: 1221584917037716083}
   - component: {fileID: 5559737082915102310}
   - component: {fileID: 3885429016222280302}
+  - component: {fileID: 8601231934168648838}
   m_Layer: 0
   m_Name: yellowpuyo
   m_TagString: Untagged
@@ -427,3 +441,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   nowPos: 0
+--- !u!114 &8601231934168648838
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2972212274579125661}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d17e3565f70c144fe9531d4476e36009, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

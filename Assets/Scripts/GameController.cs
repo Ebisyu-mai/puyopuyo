@@ -16,6 +16,7 @@ public class GameController : MonoBehaviour
     public List<int> destroyPuyo = new List<int>(); //実際に消すぷよのIDを入れとく
     public List<int> provisionalDestroyPuyo = new List<int>(); //一次的に同じ色のぷよを入れとく
     public int[] finishPuyo; //ぷよがつながってるか確認済みのリスト 0ならまだ、1なら探索済み
+    public int destroyPuyoNum = 0;
     int nextpuyo;
     public bool matipuyoKesou;
 
@@ -34,7 +35,7 @@ public class GameController : MonoBehaviour
         {
             nextGo = false;
             GameObject puyos = Instantiate(puyo[nextpuyo - 1]) as GameObject;
-            //GameObject puyos = Instantiate(puyo[1]) as GameObject;
+            //GameObject puyos = Instantiate(puyo[0]) as GameObject;
             puyos.transform.position = new Vector3(0.5f, 4.5f, 0);
             nextpuyo = Random.Range(1, 7);
             GameObject matiPuyos = Instantiate(matiPuyo[nextpuyo - 1]) as GameObject;
@@ -45,7 +46,7 @@ public class GameController : MonoBehaviour
         {
             puyoFall = false;
             madaOtitenai = 0;
-            for (int i = 1; i < puyoNum.Length - 5; i++)
+            for (int i = 1; i < puyoNum.Length - 6; i++)
             {
                 if (puyoNum[i] != 0 && puyoNum[i + 6] == 0)
                 {
@@ -63,12 +64,12 @@ public class GameController : MonoBehaviour
         if (puyoHantei)
         {
             puyoHantei = false;
-            for (int i = 1; i < finishPuyo.Length + 1; i++)
+            for (int i = 1; i < finishPuyo.Length; i++)
             {
                 finishPuyo[i] = 0;
             }
 
-            for (int j = 1; j < puyoNum.Length + 1; j++)
+            for (int j = 1; j < puyoNum.Length; j++)
             {
                 puyoCheck(j, puyoNum[j]);
                 if (provisionalDestroyPuyo.Count > 3)
@@ -77,15 +78,31 @@ public class GameController : MonoBehaviour
                 }
                 provisionalDestroyPuyo.Clear();
             }
-            
+
+            if (destroyPuyo.Count == 0)
+            {
+                matipuyoKesou = true;
+                nextGo = true;
+            }
+            else
+            {
+                puyoKesou = true;
+            }
+        }
+
+        if (puyoKesou && destroyPuyo.Count == destroyPuyoNum)
+        {
+            destroyPuyo.Clear();
+            puyoKesou = false;
+            puyoFall = true;
+            destroyPuyoNum = 0;
         }
     }
 
     IEnumerator tyottoMatsuyo()
     {
-        yield return new WaitForSeconds(1);
-        puyoHantei = true;
-        matipuyoKesou = true;
+        yield return new WaitForSeconds(0.5f);
+        puyoHantei = true; 
     }
 
     void puyoCheck(int num, int color)
@@ -93,13 +110,13 @@ public class GameController : MonoBehaviour
         if (finishPuyo[num] == 0)
         {
             finishPuyo[num] = 1;
-            if (color != 0 && puyoNum[num] == color)
+            if (color != 0)
             {
                 provisionalDestroyPuyo.Add(num);
-                if (num % 6 != 0) puyoCheck(num + 1, color);
-                if (num < 55) puyoCheck(num + 6, color);
-                if (num % 6 != 1) puyoCheck(num - 1, color);
-                if (num > 6) puyoCheck(num - 6, color);
+                if (num % 6 != 0 && puyoNum[num + 1] == color) puyoCheck(num + 1, color);
+                if (num < 55 && puyoNum[num + 6] == color) puyoCheck(num + 6, color);
+                if (num % 6 != 1 && puyoNum[num - 1] == color) puyoCheck(num - 1, color);
+                if (num > 6 && puyoNum[num - 6] == color) puyoCheck(num - 6, color);
             }
         }
     }

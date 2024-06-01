@@ -28,11 +28,6 @@ public class KopuyoController : MonoBehaviour
                 StartCoroutine("DownSpeed");
             }
         }
-
-        if (Input.GetKeyDown(KeyCode.B) && this.gameObject.name == "bluepuyo")
-        {
-            Destroy(this.gameObject);
-        }
     }
 
     IEnumerator DownSpeed()
@@ -40,7 +35,7 @@ public class KopuyoController : MonoBehaviour
         if (transform.position.y > -4)
         {
             transform.position -= new Vector3(0, 1, 0);
-            yield return new WaitForSeconds(0.01f);
+            yield return new WaitForSeconds(0.05f);
             wait = true;
         }
     }
