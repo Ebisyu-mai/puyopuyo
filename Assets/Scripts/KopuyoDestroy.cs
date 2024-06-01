@@ -4,13 +4,13 @@ using UnityEngine;
 
 public class KopuyoDestroy : MonoBehaviour
 {
-    // Start is called before the first frame update
+    GameController gameController;
     void Start()
     {
-        
+        gameController = GameObject.Find("GameController").GetComponent<GameController>();
     }
 
-    // Update is called once per frame
+
     void Update()
     {
         

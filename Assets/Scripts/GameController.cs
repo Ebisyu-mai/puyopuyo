@@ -13,7 +13,9 @@ public class GameController : MonoBehaviour
 
     public GameObject[] puyo;
     public GameObject[] matiPuyo;
-    public int[] destroyPuyo;
+    public List<int> destroyPuyo = new List<int>(); //実際に消すぷよのIDを入れとく
+    public List<int> provisionalDestroyPuyo = new List<int>(); //一次的に同じ色のぷよを入れとく
+    public int[] finishPuyo; //ぷよがつながってるか確認済みのリスト 0ならまだ、1なら探索済み
     int nextpuyo;
     public bool matipuyoKesou;
 
@@ -61,6 +63,20 @@ public class GameController : MonoBehaviour
         if (puyoHantei)
         {
             puyoHantei = false;
+            for (int i = 1; i < finishPuyo.Length + 1; i++)
+            {
+                finishPuyo[i] = 0;
+            }
+
+            for (int j = 1; j < puyoNum.Length + 1; j++)
+            {
+                puyoCheck(j, puyoNum[j]);
+                if (provisionalDestroyPuyo.Count > 3)
+                {
+                   destroyPuyo.AddRange(provisionalDestroyPuyo);
+                }
+                provisionalDestroyPuyo.Clear();
+            }
             
         }
     }
@@ -72,38 +88,18 @@ public class GameController : MonoBehaviour
         matipuyoKesou = true;
     }
 
-    void puyoCheck()
+    void puyoCheck(int num, int color)
     {
-        for (int i = 1; i < puyoNum.Length - 5; i++)
+        if (finishPuyo[num] == 0)
         {
-            int num = 0;
-            destroyPuyo[num] = i;
-            if (puyoNum[i] != 0)
+            finishPuyo[num] = 1;
+            if (color != 0 && puyoNum[num] == color)
             {
-                int n = 1;
-                num = 1;
-
-
-
-
-                while (puyoNum[i] == puyoNum[i + n] && puyoNum[i + n] % 6 != 1)
-                {
-                    n++;
-                    destroyPuyo[num] = i + n;
-                }
-
-                while (n == 0)
-                {
-                    if (puyoNum[i] == puyoNum[i + n + 6])
-                    {
-
-                    }
-                }
-
-                if (puyoNum[i] % 6 != 0 && puyoNum[i] == puyoNum[i + 1])
-                {
-
-                }
+                provisionalDestroyPuyo.Add(num);
+                if (num % 6 != 0) puyoCheck(num + 1, color);
+                if (num < 55) puyoCheck(num + 6, color);
+                if (num % 6 != 1) puyoCheck(num - 1, color);
+                if (num > 6) puyoCheck(num - 6, color);
             }
         }
     }
