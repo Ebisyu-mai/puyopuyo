@@ -5,27 +5,28 @@ using UnityEngine;
 public class KopuyoController : MonoBehaviour
 {
     bool wait;
-    bool sita;
     bool go;
+
+    public int nowPos;
+    int num = 0;
+    GameController gameController;
 
     void Start()
     {
-        sita = false;
         wait = true;
+        gameController = GameObject.Find("GameController").GetComponent<GameController>();
     }
 
     void Update()
     {
-        //Debug.Log(sita);
-        if (this.gameObject.transform.parent == null && !go)
+        if (this.gameObject.transform.parent == null && nowPos < 55)
         {
-            StartCoroutine("goDown");
-        }
-
-        if (!sita && wait && go)
-        {
-            wait = false;
-            StartCoroutine("DownSpeed");
+            if (!go) StartCoroutine("goDown");
+            if (gameController.puyoNum[nowPos + 6] == 0 && go && wait)
+            {
+                wait = false;
+                StartCoroutine("DownSpeed");
+            }
         }
 
         if (Input.GetKeyDown(KeyCode.B) && this.gameObject.name == "bluepuyo")
@@ -39,31 +40,22 @@ public class KopuyoController : MonoBehaviour
         if (transform.position.y > -4)
         {
             transform.position -= new Vector3(0, 1, 0);
-            yield return new WaitForSeconds(0.1f);
+            yield return new WaitForSeconds(0.01f);
             wait = true;
         }
-        
     }
 
     IEnumerator goDown()
     {
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSeconds(0.1f);
         go = true;
     }
 
     private void OnTriggerStay2D(Collider2D other)
     {
-        if (other.gameObject.tag == "blue" || other.gameObject.tag == "yellow" || other.gameObject.tag == "pink" || other.gameObject.tag == "soko")
+        if (other.gameObject.tag == "hantei" & int.TryParse(other.gameObject.name, out num))
         {
-            sita = true;
-        }
-    }
-
-    private void OnTriggerExit2D(Collider2D other)
-    {
-        if (other.gameObject.tag == "blue" || other.gameObject.tag == "yellow" || other.gameObject.tag == "pink")
-        {
-            sita = false;
+            nowPos = int.Parse(other.gameObject.name);
         }
     }
 }
